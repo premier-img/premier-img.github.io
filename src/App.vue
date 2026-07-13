@@ -1,5 +1,5 @@
 <script setup>
-import { Document, Link, Picture, TrendCharts } from '@element-plus/icons-vue'
+import { Document, Files, Link, Picture, TrendCharts } from '@element-plus/icons-vue'
 
 const authors = [
   'Zihao Wang',
@@ -15,6 +15,7 @@ const authors = [
 const links = [
   { label: 'Paper', href: '/adapref/premier.pdf', icon: Document },
   { label: 'arXiv', href: 'https://arxiv.org/abs/2603.20725', icon: Link },
+  { label: 'GitHub', href: 'https://github.com/120L020904/Premier', icon: Files },
 ]
 
 const highlights = [
@@ -64,25 +65,33 @@ const bibtex = `@article{wang2026premier,
 <template>
   <main class="page-shell">
     <nav class="topbar" aria-label="Primary">
-      <a class="brand" href="#">Premier</a>
+      <a class="brand" href="#">
+        <img src="/adapref/project-icon.png" alt="" />
+        <span>Premier</span>
+      </a>
       <div class="nav-links">
         <a href="#method">Method</a>
         <a href="#results">Results</a>
+        <a href="https://github.com/120L020904/Premier" target="_blank" rel="noreferrer">GitHub</a>
         <a href="#bibtex">BibTeX</a>
       </div>
     </nav>
 
     <section class="hero">
       <div class="hero-copy">
-        <p class="venue">arXiv 2026</p>
+        <div class="paper-badges">
+          <span>CVPR 2026</span>
+          <span>Highlight</span>
+        </div>
+        <img class="project-icon" src="/adapref/project-icon.png" alt="Premier project icon" />
         <h1>Premier: Personalized Preference Modulation with Learnable User Embedding in Text-to-Image Generation</h1>
         <p class="subtitle">
-          Premier learns compact user preference embeddings from preference images, then injects them into text-to-image generation through token-wise modulation.
+          Learn compact user preference embeddings from preference images, then inject them into text-to-image generation through token-wise modulation.
         </p>
         <div class="authors" aria-label="Authors">
           <span v-for="author in authors" :key="author">{{ author }}</span>
         </div>
-        <p class="affiliations">Harbin Institute of Technology · Duxiaoman</p>
+        <p class="affiliations">Harbin Institute of Technology / Duxiaoman</p>
         <div class="actions">
           <a v-for="item in links" :key="item.label" class="action" :href="item.href" target="_blank" rel="noreferrer">
             <el-icon><component :is="item.icon" /></el-icon>
@@ -199,9 +208,19 @@ img {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 800;
   font-size: 20px;
   color: #134e4a;
+}
+
+.brand img {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  object-fit: cover;
 }
 
 .nav-links {
@@ -227,13 +246,42 @@ img {
   padding: 54px 5vw 36px;
 }
 
-.venue {
-  margin: 0 0 14px;
+.paper-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.paper-badges span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 11px;
+  border: 1px solid rgba(194, 65, 12, 0.18);
+  border-radius: 999px;
+  background: #fff7ed;
   color: #c2410c;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 850;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.paper-badges span:nth-child(2) {
+  border-color: rgba(15, 118, 110, 0.2);
+  background: #ecfdf5;
+  color: #0f766e;
+}
+
+.project-icon {
+  width: 86px;
+  height: 86px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(27, 31, 35, 0.08);
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
 }
 
 h1,
@@ -311,7 +359,7 @@ h3 {
   font-weight: 750;
 }
 
-.action:nth-child(2) {
+.action:nth-child(n + 2) {
   border-color: rgba(15, 118, 110, 0.25);
   background: #ffffff;
   color: #0f766e;
