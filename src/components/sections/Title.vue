@@ -7,13 +7,13 @@ import { Document, Files, MagicStick, Picture, DataAnalysis, Film } from '@eleme
 const logo = './logo.png'
 
 // 标题
-const title = 'Academic Project Page Template'
+const title = 'Premier: Personalized Preference Modulation with Learnable User Embedding in Text-to-Image Generation'
 
 // 标题颜色
 const title_color = '#000000'
 
 // 标题补充，没有则置为''即可
-const title_supp = ' (Vue based)'
+const title_supp = ' (CVPR 2026)'
 
 // 标题补充颜色
 const title_supp_color = '#42B883'
@@ -24,38 +24,40 @@ const btn_color = '#444444'
 // 作者清单（包含作者姓名、头像、主页、地址序号）
 const authors = [
   {
-    name: "Your Name",
-    icon: "./icon/junyaohu.jpg",
-    homepage: "https://junyaohu.github.io/",
-    address_flag: "1,#"
+    name: "Zihao Wang",
+    // icon: "./icon/junyaohu.jpg",
+    homepage: "https://scholar.google.com.hk/citations?hl=zh-CN&user=rNsMDCUAAAAJ",
+    address_flag: "1"
   },
   {
-    name: "Anya Forger",
-    icon: "./icon/anya.jpg",
-    homepage: "https://www.bilibili.com/video/BV1jv4y1P7Bb",
-    address_flag: "2,#"
+    name: "Yuxiang Wei1",
+    // icon: "./icon/anya.jpg",
+    homepage: "https://scholar.google.com.hk/citations?hl=zh-CN&user=hORhL7YAAAAJ&view_op=list_works&sortby=pubdate",
+    address_flag: "1"
   },
   {
-    name: "BugCat Capoo",
-    icon: "./icon/capoo.webp",
-    homepage: "https://zh.moegirl.org.cn/%E7%8C%AB%E7%8C%AB%E8%99%AB%E5%92%96%E6%B3%A2",
-    address_flag: "1,*"
+    name: "Xinpeng Zhou",
+    // icon: "./icon/capoo.webp",
+    address_flag: "1"
   },
+  {
+
+  }
 ]
 
 // 地址清单（包含地址名称、头像、主页、地址序号）
 const addresses = [
   {
     address_flag: "1",
-    name: "Home University",
-    icon: "./icon/home.png",
-    homepage: "https://github.com/hmuniversity"
+    name: "Harbin Institute of Technology",
+    icon: "./icon/hit.jpg",
+    // homepage: "https://github.com/hmuniversity"
   },
   {
     address_flag: "2",
-    name: "IKUN University",
-    icon: "./icon/ikun.avif",
-    homepage: "https://www.bilibili.com/video/BV178411Y7QB"
+    name: "Duxiaoman",
+    icon: "./icon/duxiaoman.jpg",
+    // homepage: "https://www.bilibili.com/video/BV178411Y7QB"
   },
 ]
 
