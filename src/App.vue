@@ -56,44 +56,29 @@ const figures = [
 
 const metricTables = [
   {
-    title: 'Main Quantitative Results',
+    title: 'Table 1. Quantitative Comparison',
     note: 'Higher is better for ViPer score, ViPer rate, and CLIP T2I. Lower is better for LPIPS.',
-    columns: ['Metric', 'Data', 'Flux', 'InstantStyle', 'Bagel', 'Qwen Image Edit', 'DrUM', 'ViPer 8 history', 'Ours 8 history', 'Ours 60 history'],
+    columns: ['Metric', 'Data', 'Flux', 'InstantStyle', 'Bagel', 'Qwen Image Edit', 'DrUM', 'ViPer', 'Ours'],
     rows: [
-      ['ViPer score', '0.8890', '0.3953', '0.6277', '0.5075', '0.4688', '0.4791', '0.5159', '0.6935', '0.6996'],
-      ['ViPer rate', '-', '-', '0.7770', '0.7030', '0.6130', '0.5730', '0.6760', '0.8710', '0.8700'],
-      ['CLIP T2I', '0.3027', '0.3089', '0.2988', '0.3107', '0.3101', '0.3072', '0.2981', '0.3182', '0.3129'],
-      ['LPIPS', '-', '-', '0.6641', '0.6438', '0.6407', '0.6541', '0.6564', '0.6010', '0.5932'],
+      ['ViPer Score', '0.8890', '0.3953', '0.6277', '0.5075', '0.4688', '0.4791', '0.5159', '0.6889'],
+      ['ViPer Rate', '-', '-', '0.777', '0.703', '0.613', '0.573', '0.676', '0.876'],
+      ['CLIP T2I', '0.3027', '0.3089', '0.2988', '0.3107', '0.3101', '0.3072', '0.2981', '0.3183'],
+      ['LPIPS', '-', '-', '0.6641', '0.6438', '0.6407', '0.6541', '0.6564', '0.5986'],
     ],
     oursFrom: 8,
   },
   {
-    title: 'Ablation Study',
+    title: 'Table 2. Ablation Study',
     note: 'Removing the shared adapter, distinct adapter, dispersion loss, or prompt interaction weakens preference alignment.',
     columns: ['Variant', 'ViPer score', 'ViPer rate', 'CLIP T2I', 'LPIPS'],
     rows: [
-      ['w/o shared', '0.4818', '0.6600', '0.3162', '0.6247'],
-      ['w/o distinct', '0.4917', '0.6700', '0.3131', '0.6353'],
-      ['w/o disp', '0.4498', '0.6180', '0.3162', '0.6249'],
-      ['w/o prompt', '0.6492', '0.8400', '0.3074', '0.6225'],
-      ['Ours', '0.6935', '0.8710', '0.3182', '0.6010'],
+      ['Ours w/o Δshared', '0.4818', '0.667', '0.3162', '0.6247'],
+      ['Ours w/o Δdistinct', '0.4917', '0.669', '0.3131', '0.6353'],
+      ['Ours w/o Disp Loss', '0.4498', '0.618', '0.3162', '0.6249'],
+      ['Ours w/o PPM', '0.6492', '0.840', '0.3074', '0.6225'],
+      ['Ours', '0.6889', '0.876', '0.3183', '0.5986'],
     ],
     oursRows: ['Ours'],
-  },
-  {
-    title: 'History Length Study',
-    note: 'Direct training and linear-combination initialization remain stable across different preference history lengths.',
-    columns: ['Setting', '2', '4', '8', '16', '32'],
-    rows: [
-      ['Direct ViPer score', '0.6489', '0.6707', '0.6935', '0.6857', '0.6874'],
-      ['Direct ViPer rate', '0.8450', '0.8630', '0.8710', '0.8720', '0.8640'],
-      ['Direct CLIP T2I', '0.3182', '0.3177', '0.3182', '0.3188', '0.3194'],
-      ['Direct LPIPS', '0.6057', '0.6037', '0.6010', '0.5979', '0.5971'],
-      ['Linear ViPer score', '0.6636', '0.6750', '0.6889', '0.6786', '0.6752'],
-      ['Linear ViPer rate', '0.8580', '0.8630', '0.8760', '0.8820', '0.8700'],
-      ['Linear CLIP T2I', '0.3180', '0.3183', '0.3183', '0.3189', '0.3182'],
-      ['Linear LPIPS', '0.6028', '0.6013', '0.5986', '0.5982', '0.5983'],
-    ],
   },
 ]
 
@@ -226,6 +211,17 @@ const bibtex = `@article{wang2026premier,
               </tbody>
             </table>
           </div>
+        </article>
+        <article class="metric-table-card curve-card">
+          <div class="table-heading">
+            <h3>Figure 6/7. History Length Curves</h3>
+            <p>
+              Official paper curves comparing direct embedding training and linear-combination optimization under different user history lengths.
+            </p>
+          </div>
+          <figure>
+            <img src="/adapref/history_curves.png" alt="Paper figures showing ViPer Score and LPIPS curves across user history lengths." />
+          </figure>
         </article>
       </div>
     </section>
@@ -679,6 +675,18 @@ tbody tr:last-child td {
 
 .ours-row td:first-child {
   color: #0f766e;
+}
+
+.curve-card figure {
+  margin: 0;
+  padding: 0 22px 22px;
+}
+
+.curve-card img {
+  width: 100%;
+  border: 1px solid rgba(27, 31, 35, 0.08);
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .bibtex-section pre {
