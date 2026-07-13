@@ -54,6 +54,49 @@ const figures = [
   },
 ]
 
+const metricTables = [
+  {
+    title: 'Main Quantitative Results',
+    note: 'Higher is better for ViPer score, ViPer rate, and CLIP T2I. Lower is better for LPIPS.',
+    columns: ['Metric', 'Data', 'Flux', 'InstantStyle', 'Bagel', 'Qwen Image Edit', 'DrUM', 'ViPer 8 history', 'Ours 8 history', 'Ours 60 history'],
+    rows: [
+      ['ViPer score', '0.8890', '0.3953', '0.6277', '0.5075', '0.4688', '0.4791', '0.5159', '0.6935', '0.6996'],
+      ['ViPer rate', '-', '-', '0.7770', '0.7030', '0.6130', '0.5730', '0.6760', '0.8710', '0.8700'],
+      ['CLIP T2I', '0.3027', '0.3089', '0.2988', '0.3107', '0.3101', '0.3072', '0.2981', '0.3182', '0.3129'],
+      ['LPIPS', '-', '-', '0.6641', '0.6438', '0.6407', '0.6541', '0.6564', '0.6010', '0.5932'],
+    ],
+    oursFrom: 8,
+  },
+  {
+    title: 'Ablation Study',
+    note: 'Removing the shared adapter, distinct adapter, dispersion loss, or prompt interaction weakens preference alignment.',
+    columns: ['Variant', 'ViPer score', 'ViPer rate', 'CLIP T2I', 'LPIPS'],
+    rows: [
+      ['w/o shared', '0.4818', '0.6600', '0.3162', '0.6247'],
+      ['w/o distinct', '0.4917', '0.6700', '0.3131', '0.6353'],
+      ['w/o disp', '0.4498', '0.6180', '0.3162', '0.6249'],
+      ['w/o prompt', '0.6492', '0.8400', '0.3074', '0.6225'],
+      ['Ours', '0.6935', '0.8710', '0.3182', '0.6010'],
+    ],
+    oursRows: ['Ours'],
+  },
+  {
+    title: 'History Length Study',
+    note: 'Direct training and linear-combination initialization remain stable across different preference history lengths.',
+    columns: ['Setting', '2', '4', '8', '16', '32'],
+    rows: [
+      ['Direct ViPer score', '0.6489', '0.6707', '0.6935', '0.6857', '0.6874'],
+      ['Direct ViPer rate', '0.8450', '0.8630', '0.8710', '0.8720', '0.8640'],
+      ['Direct CLIP T2I', '0.3182', '0.3177', '0.3182', '0.3188', '0.3194'],
+      ['Direct LPIPS', '0.6057', '0.6037', '0.6010', '0.5979', '0.5971'],
+      ['Linear ViPer score', '0.6636', '0.6750', '0.6889', '0.6786', '0.6752'],
+      ['Linear ViPer rate', '0.8580', '0.8630', '0.8760', '0.8820', '0.8700'],
+      ['Linear CLIP T2I', '0.3180', '0.3183', '0.3183', '0.3189', '0.3182'],
+      ['Linear LPIPS', '0.6028', '0.6013', '0.5986', '0.5982', '0.5983'],
+    ],
+  },
+]
+
 const bibtex = `@article{wang2026premier,
   title={Premier: Personalized Preference Modulation with Learnable User Embedding in Text-to-Image Generation},
   author={Wang, Zihao and Wei, Yuxiang and Zhou, Xinpeng and Zhang, Tianyu and Liang, Tao and Bai, Yalong and Zhang, Hongzhi and Zuo, Wangmeng},
@@ -72,6 +115,7 @@ const bibtex = `@article{wang2026premier,
       <div class="nav-links">
         <a href="#method">Method</a>
         <a href="#results">Results</a>
+        <a href="#tables">Tables</a>
         <a href="https://github.com/120L020904/Premier" target="_blank" rel="noreferrer">GitHub</a>
         <a href="#bibtex">BibTeX</a>
       </div>
@@ -147,6 +191,41 @@ const bibtex = `@article{wang2026premier,
             <p>{{ figure.text }}</p>
           </div>
           <img :src="figure.image" :alt="figure.title" />
+        </article>
+      </div>
+    </section>
+
+    <section id="tables" class="tables-section">
+      <div class="section-heading">
+        <el-icon><TrendCharts /></el-icon>
+        <h2>Result Tables</h2>
+      </div>
+      <div class="metric-table-list">
+        <article v-for="table in metricTables" :key="table.title" class="metric-table-card">
+          <div class="table-heading">
+            <h3>{{ table.title }}</h3>
+            <p>{{ table.note }}</p>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th v-for="column in table.columns" :key="column">{{ column }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in table.rows" :key="row[0]" :class="{ 'ours-row': table.oursRows?.includes(row[0]) }">
+                  <td
+                    v-for="(cell, index) in row"
+                    :key="`${row[0]}-${index}`"
+                    :class="{ 'ours-cell': table.oursFrom && index >= table.oursFrom }"
+                  >
+                    {{ cell }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </article>
       </div>
     </section>
@@ -238,12 +317,19 @@ img {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(320px, 0.78fr) minmax(480px, 1.22fr);
-  gap: 44px;
+  grid-template-columns: 1fr;
+  gap: 34px;
   align-items: center;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 54px 5vw 36px;
+  padding: 48px 5vw 36px;
+}
+
+.hero-copy {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .paper-badges {
@@ -322,9 +408,11 @@ h3 {
   color: #334155;
   font-size: 19px;
   line-height: 1.55;
+  text-align: center;
 }
 
 .authors {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
@@ -338,9 +426,11 @@ h3 {
   margin: 14px 0 24px;
   color: #64748b;
   font-size: 15px;
+  text-align: center;
 }
 
 .actions {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -371,7 +461,9 @@ h3 {
 }
 
 .hero-media {
+  width: min(1120px, 100%);
   margin: 0;
+  justify-self: center;
 }
 
 .hero-media img,
@@ -393,6 +485,7 @@ figcaption {
 .abstract-section,
 .figure-section,
 .results-section,
+.tables-section,
 .bibtex-section {
   max-width: 1240px;
   margin: 0 auto;
@@ -498,6 +591,94 @@ figcaption {
 .result-item img {
   width: 100%;
   padding: 12px;
+}
+
+.tables-section {
+  max-width: none;
+}
+
+.tables-section > .section-heading,
+.metric-table-list {
+  max-width: 1240px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.metric-table-list {
+  display: grid;
+  gap: 22px;
+}
+
+.metric-table-card {
+  border: 1px solid rgba(27, 31, 35, 0.08);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.06);
+}
+
+.table-heading {
+  padding: 22px 22px 8px;
+}
+
+.table-heading p {
+  margin-bottom: 0;
+  color: #64748b;
+  line-height: 1.55;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  padding: 0 22px 22px;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(27, 31, 35, 0.08);
+  text-align: right;
+  white-space: nowrap;
+}
+
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 800;
+  text-align: left;
+}
+
+th {
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 800;
+}
+
+th:first-child {
+  background: #f8fafc;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ours-cell,
+.ours-row td {
+  color: #0f766e;
+  font-weight: 850;
+}
+
+.ours-row td:first-child {
+  color: #0f766e;
 }
 
 .bibtex-section pre {
