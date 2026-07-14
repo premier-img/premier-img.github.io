@@ -13,9 +13,9 @@ const authors = [
 ]
 
 const links = [
-  { label: 'Paper', href: '/adapref/premier.pdf', icon: Document },
-  { label: 'arXiv', href: 'https://arxiv.org/abs/2603.20725', icon: Link },
-  { label: 'GitHub', href: 'https://github.com/120L020904/Premier', icon: Files },
+  { label: 'Paper', href: 'https://arxiv.org/abs/2603.20725', icon: Document },
+  { label: 'Code', href: 'https://github.com/120L020904/Premier', icon: Files },
+  { label: 'Model', href: 'https://huggingface.co/pino10010/Premier', icon: Link },
 ]
 
 const highlights = [
@@ -101,7 +101,8 @@ const bibtex = `@article{wang2026premier,
         <a href="#method">Method</a>
         <a href="#results">Results</a>
         <a href="#tables">Tables</a>
-        <a href="https://github.com/120L020904/Premier" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/120L020904/Premier" target="_blank" rel="noreferrer">Code</a>
+        <a href="https://huggingface.co/pino10010/Premier" target="_blank" rel="noreferrer">Model</a>
         <a href="#bibtex">BibTeX</a>
       </div>
     </nav>
@@ -127,6 +128,9 @@ const bibtex = `@article{wang2026premier,
             <span>{{ item.label }}</span>
           </a>
         </div>
+        <p class="resource-note">
+          Paper on arXiv / code on GitHub / model weights on Hugging Face.
+        </p>
       </div>
       <figure class="hero-media">
         <img src="/adapref/teaser.png" alt="Premier comparison teaser showing user preference images and generated results from several methods." />
@@ -430,6 +434,14 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.resource-note {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
 }
 
 .action {
